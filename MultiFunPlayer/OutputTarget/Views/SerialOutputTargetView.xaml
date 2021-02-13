@@ -14,40 +14,17 @@
     </UserControl.Resources>
     <StackPanel Margin="20">
         <DockPanel LastChildFill="True" Margin="0 0 0 20">
-            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Text="Update rate" Margin="60 0 10 0"/>
-                <Slider Value="{Binding UpdateRate, Mode=TwoWay}"
-                        HorizontalAlignment="Stretch"
-                        Margin="0 15 10 15"
-                        Width="100"
-                        Minimum="30" 
-                        Maximum="330" 
-                        Interval="10" 
-                        IsSnapToTickEnabled="True" 
-                        TickFrequency="10" 
-                        Orientation="Horizontal"/>
-                <TextBlock VerticalAlignment="Center" 
-                           HorizontalAlignment="Right" 
-                           TextAlignment="Right"
-                           Width="40"
-                           Text="{Binding UpdateRate, StringFormat={}{0} hz}"/>
-            </StackPanel>
-
-            <DockPanel DockPanel.Dock="Left">
-                <Button Style="{StaticResource MaterialDesignFloatingActionLightButton}" 
-                    DockPanel.Dock="Right"
-                    Height="24"
-                    Width="24"
-                    Command="{s:Action RefreshPorts}"
-                    IsEnabled="{Binding CanRefreshPorts}"
-                    material:ButtonProgressAssist.IsIndicatorVisible="{Binding IsRefreshBusy}"
-                    material:ButtonProgressAssist.Value="-1"
-                    material:ButtonProgressAssist.IsIndeterminate="True">
-                    <material:PackIcon Kind="Refresh"/>
-                </Button>
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          DockPanel.Dock="Left"
+                          material:HintAssist.Hint="COM Port"
+                          material:TextFieldAssist.HasClearButton="True"
+                          Margin="0 -11 20 0"
+                          Width="150"
+                          ItemsSource="{Binding ComPorts}"
+                          SelectedItem="{Binding SelectedComPort}"/>
 
                 <Button Style="{StaticResource MaterialDesignFloatingActionLightButton}" 
-                    DockPanel.Dock="Right"
                     Height="24"
                     Width="24"
                     Margin="0 0 10 0"
@@ -76,16 +53,39 @@
                         </material:PackIcon.Style>
                     </material:PackIcon>
                 </Button>
-
-                <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                        DockPanel.Dock="Left"
-                        material:HintAssist.Hint="COM Port"
-                        material:TextFieldAssist.HasClearButton="True"
-                        Margin="0 0 20 0"
-                        ItemsSource="{Binding ComPorts}"
-                        SelectedItem="{Binding SelectedComPort}"/>
-            </DockPanel>
+                
+                <Button Style="{StaticResource MaterialDesignFloatingActionLightButton}" 
+                    Height="24"
+                    Width="24"
+                    Command="{s:Action RefreshPorts}"
+                    IsEnabled="{Binding CanRefreshPorts}"
+                    material:ButtonProgressAssist.IsIndicatorVisible="{Binding IsRefreshBusy}"
+                    material:ButtonProgressAssist.Value="-1"
+                    material:ButtonProgressAssist.IsIndeterminate="True">
+                    <material:PackIcon Kind="Refresh"/>
+                </Button>
+            </StackPanel>
         </DockPanel>
+        
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0 0 0 10">
+            <TextBlock VerticalAlignment="Center" Text="Update rate" Margin="0 0 10 0"/>
+            <Slider Value="{Binding UpdateRate, Mode=TwoWay}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    Margin="0 0 10 0"
+                    Width="100"
+                    Minimum="30" 
+                    Maximum="330" 
+                    Interval="10" 
+                    IsSnapToTickEnabled="True" 
+                    TickFrequency="10" 
+                    Orientation="Horizontal"/>
+            <TextBlock VerticalAlignment="Center" 
+                        HorizontalAlignment="Right" 
+                        TextAlignment="Right"
+                        Width="40"
+                        Text="{Binding UpdateRate, StringFormat={}{0} hz}"/>
+        </StackPanel>
 
         <ItemsControl ItemsSource="{Binding AxisSettings}">
             <ItemsControl.ItemsPanel>
