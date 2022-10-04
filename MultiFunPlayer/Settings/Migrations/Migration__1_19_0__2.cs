@@ -27,9 +27,9 @@ public class Migration__1_19_0__2 : AbstractConfigMigration
         Logger.Info("Migrating LogBlacklist");
         var filterMap = new Dictionary<string, string>()
         {
-            ["MultiFunPlayer.Common.Input.RawInput.*"] = $"{typeof(RawInputProcessor).Namespace}.*",
-            ["MultiFunPlayer.Common.Input.XInput.*"] = $"{typeof(XInputProcessor).Namespace}.*",
-            ["MultiFunPlayer.ViewModels.ShortcutViewModel"] = $"{typeof(ShortcutViewModel).FullName}"
+            ["MultiFunPlayer.Common.Input.RawInput.*"] = "MultiFunPlayer.Input.RawInput.*",
+            ["MultiFunPlayer.Common.Input.XInput.*"] = "MultiFunPlayer.Input.XInput.*",
+            ["MultiFunPlayer.ViewModels.ShortcutViewModel"] = "MultiFunPlayer.UI.Controls.ViewModels.ShortcutViewModel"
         };
 
         foreach (var (from, to) in filterMap)
